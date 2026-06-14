@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stanley Sarfo Peprah — Software Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #080C14; --surface: #0D1220; --surface2: #111827;
+      --border: rgba(255,255,255,0.07); --text: #F0F4FF; --muted: #8892A4;
+      --neon: #4F8EF7; --neon2: #7C3AED; --neon-glow: rgba(79,142,247,0.25);
+      --green: #10D9A0; --amber: #F59E0B;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    .orb { position: fixed; border-radius: 50%; filter: blur(100px); opacity: 0.18; pointer-events: none; z-index: 0; animation: drift 12s ease-in-out infinite alternate; }
+    .orb-1 { width: 500px; height: 500px; background: var(--neon); top: -100px; left: -100px; }
+    .orb-2 { width: 400px; height: 400px; background: var(--neon2); bottom: 10%; right: -100px; animation-delay: -4s; }
+    .orb-3 { width: 300px; height: 300px; background: var(--green); top: 50%; left: 40%; animation-delay: -8s; opacity: 0.08; }
+    @keyframes drift { from { transform: translate(0,0) scale(1); } to { transform: translate(30px,20px) scale(1.05); } }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 0 2rem; background: rgba(8,12,20,0.7); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .nav-logo { font-size: 1rem; font-weight: 800; letter-spacing: -0.02em; text-decoration: none; background: linear-gradient(135deg, var(--neon), var(--neon2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.85rem; font-weight: 500; color: var(--muted); text-decoration: none; transition: color 0.2s; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--neon); border-radius: 2px; transition: width 0.3s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { width: 100%; }
+
+    section { position: relative; z-index: 1; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+    #hero { min-height: 100vh; display: flex; align-items: center; padding: 100px 0 80px; }
+    .hero-content { max-width: 700px; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 1rem; border-radius: 100px; border: 1px solid rgba(79,142,247,0.3); background: rgba(79,142,247,0.08); font-size: 0.78rem; font-weight: 600; color: var(--neon); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1.75rem; }
+    .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+    h1 { font-size: clamp(2.8rem, 7vw, 5rem); font-weight: 900; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 1.5rem; }
+    h1 .line-1 { display: block; color: var(--text); }
+    h1 .line-2 { display: block; background: linear-gradient(135deg, var(--neon) 0%, var(--neon2) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-desc { font-size: 1.05rem; color: var(--muted); line-height: 1.8; max-width: 520px; margin-bottom: 2.5rem; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.6rem; border-radius: 8px; font-size: 0.875rem; font-weight: 600; text-decoration: none; transition: all 0.25s; cursor: pointer; border: none; font-family: 'Inter', sans-serif; }
+    .btn-primary { background: linear-gradient(135deg, var(--neon), var(--neon2)); color: #fff; box-shadow: 0 4px 20px var(--neon-glow); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--neon-glow); }
+    .btn-ghost { background: rgba(255,255,255,0.05); color: var(--text); border: 1px solid var(--border); }
+    .btn-ghost:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+    .hero-stats { display: flex; gap: 2.5rem; margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1px solid var(--border); flex-wrap: wrap; }
+    .stat-num { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.02em; background: linear-gradient(135deg, var(--neon), var(--neon2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .stat-label { font-size: 0.78rem; color: var(--muted); font-weight: 500; margin-top: 0.1rem; }
+
+    .section-header { margin-bottom: 3rem; }
+    .section-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--neon); margin-bottom: 0.75rem; }
+    .section-title { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800; letter-spacing: -0.02em; color: var(--text); }
+    .section-title span { background: linear-gradient(135deg, var(--neon), var(--neon2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    #about { padding: 120px 0; }
+    .about-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 4rem; align-items: start; }
+    .about-text p { color: var(--muted); margin-bottom: 1.25rem; font-size: 0.975rem; line-height: 1.85; }
+    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .skill-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; transition: border-color 0.3s, box-shadow 0.3s; }
+    .skill-card:hover { border-color: rgba(79,142,247,0.3); box-shadow: 0 0 20px var(--neon-glow); }
+    .skill-card-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--neon); margin-bottom: 0.75rem; }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tag { font-size: 0.72rem; font-weight: 500; padding: 0.25rem 0.6rem; border-radius: 4px; background: rgba(79,142,247,0.1); color: var(--neon); border: 1px solid rgba(79,142,247,0.2); }
+
+    #projects { padding: 120px 0; }
+    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .project-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; display: flex; flex-direction: column; transition: all 0.3s; position: relative; overflow: hidden; }
+    .project-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, var(--neon-glow), transparent 60%); opacity: 0; transition: opacity 0.3s; }
+    .project-card:hover { border-color: rgba(79,142,247,0.35); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.4), 0 0 30px var(--neon-glow); }
+    .project-card:hover::before { opacity: 1; }
+    .project-card.featured { grid-column: 1 / -1; background: linear-gradient(135deg, rgba(79,142,247,0.08), rgba(124,58,237,0.05)); border-color: rgba(79,142,247,0.2); }
+    .project-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+    .project-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; background: rgba(79,142,247,0.1); border: 1px solid rgba(79,142,247,0.2); flex-shrink: 0; }
+    .project-status { font-size: 0.7rem; font-weight: 700; padding: 0.3rem 0.75rem; border-radius: 100px; }
+    .status-live     { background: rgba(16,217,160,0.12); color: var(--green); border: 1px solid rgba(16,217,160,0.25); }
+    .status-building { background: rgba(245,158,11,0.12); color: var(--amber); border: 1px solid rgba(245,158,11,0.25); }
+    .status-planned  { background: rgba(136,146,164,0.1); color: var(--muted); border: 1px solid rgba(136,146,164,0.2); }
+    .project-title { font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 0.35rem; letter-spacing: -0.01em; }
+    .project-subtitle { font-size: 0.78rem; color: var(--neon); font-weight: 600; margin-bottom: 0.75rem; }
+    .project-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.7; flex: 1; margin-bottom: 1.5rem; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: auto; }
+    .project-tag { font-size: 0.68rem; font-weight: 600; padding: 0.22rem 0.6rem; border-radius: 4px; background: rgba(255,255,255,0.05); color: var(--muted); border: 1px solid var(--border); }
+    .featured-highlights { display: flex; flex-direction: column; gap: 0.6rem; margin: 1rem 0 1.5rem; }
+    .highlight-item { display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; color: var(--muted); }
+    .highlight-item::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--neon); box-shadow: 0 0 6px var(--neon); flex-shrink: 0; }
+
+    #contact { padding: 120px 0; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .contact-desc { font-size: 0.975rem; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; }
+    .contact-links { display: flex; flex-direction: column; gap: 0.75rem; }
+    .contact-link { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; text-decoration: none; color: var(--muted); font-size: 0.875rem; font-weight: 500; transition: all 0.25s; }
+    .contact-link:hover { border-color: rgba(79,142,247,0.35); color: var(--text); box-shadow: 0 4px 20px var(--neon-glow); transform: translateX(4px); }
+    .contact-link-icon { width: 38px; height: 38px; border-radius: 8px; background: rgba(79,142,247,0.1); border: 1px solid rgba(79,142,247,0.2); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+    .contact-form { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; display: flex; flex-direction: column; gap: 1.25rem; }
+    .form-title { font-size: 1rem; font-weight: 700; color: var(--text); }
+    .form-row { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-row label { font-size: 0.75rem; font-weight: 600; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; }
+    .form-row input, .form-row textarea { padding: 0.75rem 1rem; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--text); outline: none; transition: border-color 0.2s, box-shadow 0.2s; resize: vertical; }
+    .form-row input::placeholder, .form-row textarea::placeholder { color: rgba(136,146,164,0.5); }
+    .form-row input:focus, .form-row textarea:focus { border-color: var(--neon); box-shadow: 0 0 0 3px rgba(79,142,247,0.1); }
+    .form-row textarea { min-height: 120px; }
+    .form-success { display: none; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; padding: 2.5rem 1.5rem; text-align: center; }
+    .form-success.show { display: flex; }
+    .form-success-icon { width: 60px; height: 60px; border-radius: 50%; background: rgba(16,217,160,0.15); border: 2px solid var(--green); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; animation: popIn 0.4s cubic-bezier(0.175,0.885,0.32,1.275); }
+    @keyframes popIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .form-success h3 { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+    .form-success p { font-size: 0.875rem; color: var(--muted); }
+    .form-fields { display: flex; flex-direction: column; gap: 1.25rem; }
+
+    footer { padding: 2.5rem 2rem; text-align: center; border-top: 1px solid var(--border); position: relative; z-index: 1; }
+    footer p { font-size: 0.82rem; color: var(--muted); }
+    footer span { background: linear-gradient(135deg, var(--neon), var(--neon2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 600; }
+
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 768px) {
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card.featured { grid-column: auto; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { gap: 1.25rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .orb, .badge-dot { animation: none; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">SSP.</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section id="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge"><span class="badge-dot"></span> Open to Junior Developer Roles &mdash; London</div>
+        <h1>
+          <span class="line-1">Building apps</span>
+          <span class="line-2">that actually ship.</span>
+        </h1>
+        <p class="hero-desc">Software Engineering graduate specialising in Android development with Kotlin and Firebase. I build full-stack mobile apps from scratch &mdash; architecture, auth, real-time sync, and everything in between.</p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            View My Work
+          </a>
+          <a href="Stanley%20Sarfo%20CV.pdf" download class="btn btn-ghost">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            Download CV
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div><div class="stat-num">3+</div><div class="stat-label">Years building Android apps</div></div>
+          <div><div class="stat-num">6</div><div class="stat-label">Projects shipped or in progress</div></div>
+          <div><div class="stat-num">BEng</div><div class="stat-label">Software Engineering, DMU</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-eyebrow">About Me</p>
+        <h2 class="section-title">Engineer by degree, <span>builder by nature</span></h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p>I'm a recent BEng Software Engineering graduate from De Montfort University, targeting a first-class degree. My main focus is Android &mdash; I've spent the past few years building full-stack mobile apps independently, owning everything from system architecture through to testing on real hardware.</p>
+          <p>My flagship project VibeNSync is a social music intelligence app built with Kotlin, Firebase, and the Spotify API &mdash; featuring real-time synced playback, a friend system with compatibility scoring, and mood-based playlist generation. It's the kind of project that taught me more than any module could.</p>
+          <p>Outside of my main stack I'm building passive income projects: Android utility apps, an AI content channel, and a SaaS cold outreach tool. Based in London. Open to junior and graduate developer roles at companies that move fast and ship real things.</p>
+        </div>
+        <div class="skills-grid reveal">
+          <div class="skill-card"><p class="skill-card-title">Languages</p><div class="tag-list"><span class="tag">Kotlin</span><span class="tag">Java</span><span class="tag">XML</span><span class="tag">SQL</span></div></div>
+          <div class="skill-card"><p class="skill-card-title">Android</p><div class="tag-list"><span class="tag">Jetpack</span><span class="tag">MVVM</span><span class="tag">Material</span><span class="tag">SDK</span></div></div>
+          <div class="skill-card"><p class="skill-card-title">Backend</p><div class="tag-list"><span class="tag">Firebase</span><span class="tag">Firestore</span><span class="tag">REST</span><span class="tag">Auth</span></div></div>
+          <div class="skill-card"><p class="skill-card-title">Tools</p><div class="tag-list"><span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">Node.js</span><span class="tag">Replit</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-eyebrow">Projects</p>
+        <h2 class="section-title">Things I've <span>built</span></h2>
+      </div>
+      <div class="projects-grid">
+
+        <div class="project-card featured reveal">
+          <div class="project-top"><div class="project-icon">&#127925;</div><span class="project-status status-live">Completed</span></div>
+          <p class="project-title">VibeNSync</p>
+          <p class="project-subtitle">Social Music Intelligence App &mdash; Final Year Dissertation 2026</p>
+          <p class="project-desc">A full-stack Android app that connects friends through music. Built with Kotlin and Firebase from scratch &mdash; no templates, no shortcuts.</p>
+          <div class="featured-highlights">
+            <div class="highlight-item">Friend system with real-time activity feeds and Jaccard compatibility scoring</div>
+            <div class="highlight-item">Spotify Web API + App Remote SDK via PKCE OAuth for real-time playback</div>
+            <div class="highlight-item">Live Rooms for synchronised listening with custom playAndConfirm polling</div>
+            <div class="highlight-item">Mood-based playlist generation via a custom Vibe Classifier</div>
+            <div class="highlight-item">Fully custom animated neon UI, tested on physical hardware</div>
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">Kotlin</span><span class="project-tag">Firebase Firestore</span><span class="project-tag">Spotify API</span><span class="project-tag">PKCE OAuth</span><span class="project-tag">Jetpack</span><span class="project-tag">Material Design</span><span class="project-tag">Git</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-top"><div class="project-icon">&#129302;</div><span class="project-status status-building">In Progress</span></div>
+          <p class="project-title">ColdCraft</p>
+          <p class="project-subtitle">AI Cold Outreach SaaS</p>
+          <p class="project-desc">AI-powered tool that generates personalised cold outreach messages. Node.js/Express backend calling the Claude API. Built as a standalone SaaS product.</p>
+          <div class="project-tags"><span class="project-tag">Node.js</span><span class="project-tag">Express</span><span class="project-tag">Claude API</span><span class="project-tag">JavaScript</span></div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-top"><div class="project-icon">&#128247;</div><span class="project-status status-building">Active</span></div>
+          <p class="project-title">@toldyou.daily</p>
+          <p class="project-subtitle">TikTok Automation Channel</p>
+          <p class="project-desc">Automated TikTok channel posting daily Reddit story videos with AI voiceover and gameplay backgrounds. Custom pipeline built on Replit. Posting twice daily to validate the concept before scaling.</p>
+          <div class="project-tags"><span class="project-tag">AI Automation</span><span class="project-tag">Replit</span><span class="project-tag">Content Pipeline</span></div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-top"><div class="project-icon">&#9889;</div><span class="project-status status-planned">Planned</span></div>
+          <p class="project-title">Android Utility Apps</p>
+          <p class="project-subtitle">Passive Income &mdash; Play Store</p>
+          <p class="project-desc">Series of focused Android apps: White Noise / Sleep Sounds, Shift Calculator, and AI Revision Helper. Monetised via RevenueCat and AdMob.</p>
+          <div class="project-tags"><span class="project-tag">Kotlin</span><span class="project-tag">Firebase</span><span class="project-tag">RevenueCat</span><span class="project-tag">AdMob</span></div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-top"><div class="project-icon">&#127968;</div><span class="project-status status-live">Completed</span></div>
+          <p class="project-title">Smart Home Monitor</p>
+          <p class="project-subtitle">IoT / Embedded Systems &mdash; 2025</p>
+          <p class="project-desc">Environmental monitoring on NodeMCU ESP8266 with DHT11 and HC-SR04 sensors, streaming live data to ThingSpeak and Blynk dashboards.</p>
+          <div class="project-tags"><span class="project-tag">ESP8266</span><span class="project-tag">Arduino</span><span class="project-tag">ThingSpeak</span><span class="project-tag">Blynk</span></div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-top"><div class="project-icon">&#127891;</div><span class="project-status status-live">Completed</span></div>
+          <p class="project-title">Student Login App</p>
+          <p class="project-subtitle">Desktop Application &mdash; 2024</p>
+          <p class="project-desc">Java Swing desktop app with tabbed navigation for student login, profile management, and module selection. Clean UI with input validation and smooth transitions.</p>
+          <div class="project-tags"><span class="project-tag">Java</span><span class="project-tag">Swing</span><span class="project-tag">OOP</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-eyebrow">Contact</p>
+        <h2 class="section-title">Let's <span>work together</span></h2>
+      </div>
+      <div class="contact-grid">
+        <div class="reveal">
+          <p class="contact-desc">I'm actively looking for junior and graduate software engineering roles in London. If you're hiring, want to collaborate, or just want to talk tech &mdash; reach out.</p>
+          <div class="contact-links">
+            <a href="mailto:agyemangstanley1@gmail.com" class="contact-link">
+              <span class="contact-link-icon">&#9993;</span>agyemangstanley1@gmail.com
+            </a>
+            <a href="https://github.com/agyemstan4" target="_blank" rel="noopener" class="contact-link">
+              <span class="contact-link-icon"><svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></span>
+              github.com/agyemstan4
+            </a>
+            <a href="https://www.linkedin.com/in/stanley-peprah-2a3762289" target="_blank" rel="noopener" class="contact-link">
+              <span class="contact-link-icon"><svg width="15" height="15" fill="currentColor" viewBox="0 0 16 16"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg></span>
+              linkedin.com/in/stanley-peprah-2a3762289
+            </a>
+          </div>
+        </div>
+        <div class="contact-form reveal" id="contact-form-box">
+          <div class="form-fields" id="form-fields">
+            <p class="form-title">Send a message</p>
+            <div class="form-row"><label>Name</label><input type="text" placeholder="Your name" id="f-name" /></div>
+            <div class="form-row"><label>Email</label><input type="email" placeholder="your@email.com" id="f-email" /></div>
+            <div class="form-row"><label>Message</label><textarea placeholder="Say hello..." id="f-msg"></textarea></div>
+            <button class="btn btn-primary" id="submit-btn" style="align-self:flex-start;">
+              Send Message
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+            </button>
+          </div>
+          <div class="form-success" id="form-success">
+            <div class="form-success-icon">&#10003;</div>
+            <h3>Message sent!</h3>
+            <p>Thanks for reaching out. I'll get back to you soon.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Designed &amp; built by <span>Stanley Sarfo Peprah</span> &mdash; 2026</p>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.id; });
+      navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + current ? 'var(--text)' : ''; });
+    });
+
+    async function handleSubmit() {
+      const name = document.getElementById('f-name').value.trim();
+      const email = document.getElementById('f-email').value.trim();
+      const msg = document.getElementById('f-msg').value.trim();
+      if (!name || !email || !msg) { alert('Please fill in all fields.'); return; }
+
+      const btn = document.getElementById('submit-btn');
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+
+      try {
+        const res = await fetch('https://formspree.io/f/xojzyqjg', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ name, email, message: msg })
+        });
+
+        if (res.ok) {
+          document.getElementById('form-fields').style.display = 'none';
+          document.getElementById('form-success').classList.add('show');
+        } else {
+          throw new Error('Failed');
+        }
+      } catch (e) {
+        alert('Something went wrong. Please try emailing me directly at agyemangstanley1@gmail.com');
+        btn.disabled = false;
+        btn.innerHTML = 'Send Message <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>';
+      }
+    }
+      document.getElementById('submit-btn').addEventListener('click', function(e) {
+      e.preventDefault();
+      handleSubmit();
+    });
+  </script>
+</body>
+</html>
